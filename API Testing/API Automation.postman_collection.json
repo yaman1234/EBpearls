@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "950d23ed-cb51-44f5-bdea-5ee69a42547b",
+		"name": "API Automation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37322095"
+	},
+	"item": [
+		{
+			"name": "Login Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"var jsonFile = pm.response.json()\r",
+							"// Save the Access token\r",
+							"var access_token = jsonFile.access_token\r",
+							"pm.environment.set(\"access_token\", access_token);\r",
+							"// Save the Refresh Token\r",
+							"var refresh_token = jsonFile.refresh_token\r",
+							"pm.environment.set(\"refresh_token\", refresh_token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@mail.com\",\r\n  \"password\": \"admin123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/auth/login",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Users Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"    \r",
+							"    var jsonFile = pm.response.json();\r",
+							"    var secondElementId = jsonFile[1].id; // Access the second element's \"id\" property (array index starts at 0)\r",
+							"    var thirdElementId = jsonFile[2].id; \r",
+							"\r",
+							"pm.environment.set(\"3rdUserId\", thirdElementId);\r",
+							"pm.environment.set(\"2ndUserId\", secondElementId);\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{access_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/v1/users",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a user Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"john@mail.com\",\r\n  \"name\": \"Update name test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/users/{{3rdUserId}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"{{3rdUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/v1/users/{{2ndUserId}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"{{2ndUserId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all products Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// store ID of 3rd product in environment variable and delete the same 3rd product\r",
+							"    var jsonFile = pm.response.json();\r",
+							"    var thirdProductId = jsonFile[2].id; // Access the third element's \"id\" property (array index starts at 0)\r",
+							"\r",
+							"pm.environment.set(\"3rdProductId\", thirdProductId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/api/v1/products",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a product Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Change title\",\r\n  \"price\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/api/v1/products/{{3rdProductId}}",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{3rdProductId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

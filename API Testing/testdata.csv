@@ -1,0 +1,11 @@
+title,price,description,categoryId,images
+Test 1,55,Description 1,1,"[""https://placeimg.com/640/480/any""]"
+Test 2,65,Description 2,2,"[""https://placeimg.com/640/480/any""]"
+Test 3,75,Description 3,3,"[""https://placeimg.com/640/480/any""]"
+Test 4,85,Description 4,4,"[""https://placeimg.com/640/480/any""]"
+Test 5,95,Description 5,5,"[""https://placeimg.com/640/480/any""]"
+Test 6,105,Description 6,6,"[""https://placeimg.com/640/480/any""]"
+Test 7,115,Description 7,7,"[""https://placeimg.com/640/480/any""]"
+Test 8,125,Description 8,11,"[""https://placeimg.com/640/480/any""]"
+Test 9,135,Description 9,12,"[""https://placeimg.com/640/480/any""]"
+Test 10,145,Description 10,13,"[""https://placeimg.com/640/480/any""]"

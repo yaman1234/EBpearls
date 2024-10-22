@@ -96,6 +96,6 @@ public class UtilBase {
 
 	@AfterSuite
 	public void teardown() {
-		driver.quit();
+//		driver.close();
 	}
 }
